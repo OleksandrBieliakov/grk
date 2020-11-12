@@ -1,0 +1,118 @@
+<!-- Fractal -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>JS Bin</title>
+</head>
+<body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.7/p5.js"></script>
+<script>
+    function setup() {
+        createCanvas(800, 600);
+        background(color(0, 0, 0));
+
+        margin = height / 6;
+        x1 = width / 2;
+        y1 = margin;
+        x2 = margin;
+        y2 = height - margin;
+        x3 = width - margin;
+        y3 = height - margin;
+
+        step = 60;
+        half_step = step / 2;
+
+        dx1 = floor(random(0, step)) - half_step;
+        dy1 = floor(random(0, step)) - half_step;
+        dx2 = floor(random(0, step)) - half_step;
+        dy2 = floor(random(0, step)) - half_step;
+        dx3 = floor(random(0, step)) - half_step;
+        dy3 = floor(random(0, step)) - half_step;
+
+        //noLoop();
+        frameRate(25)
+    }
+
+    function draw() {//noprotect
+        for (y = 0; y < height; y++)
+            for (x = 0; x < width; x++) {
+                set(x, y, color(0, 0, 0));
+            }
+
+        candidate = x1 + dx1;
+        if (candidate < 0 || candidate >= width) {
+            dx1 = dx1 * (-1);
+            candidate = x1 + dx1;
+        }
+        x1 = candidate;
+
+        candidate = y1 + dy1;
+        if (candidate < 0 || candidate >= height) {
+            dy1 = dy1 * (-1);
+            candidate = y1 + dy1;
+        }
+        y1 = candidate;
+
+        candidate = x2 + dx2;
+        if (candidate < 0 || candidate >= width) {
+            dx2 = dx2 * (-1);
+            candidate = x2 + dx2;
+        }
+        x2 = candidate;
+
+        candidate = y2 + dy2;
+        if (candidate < 0 || candidate >= height) {
+            dy2 = dy2 * (-1);
+            candidate = y2 + dy2;
+        }
+        y2 = candidate;
+
+        candidate = x3 + dx3;
+        if (candidate < 0 || candidate >= width) {
+            dx3 = dx3 * (-1);
+            candidate = x3 + dx3;
+        }
+        x3 = candidate;
+
+        candidate = y3 + dy3;
+        if (candidate < 0 || candidate >= height) {
+            dy3 = dy3 * (-1);
+            candidate = y3 + dy3;
+        }
+        y3 = candidate;
+
+        set(x1, y1, color(255, 255, 255));
+        set(x2, y2, color(255, 255, 255));
+        set(x3, y3, color(255, 255, 255));
+
+        cx = x1
+        cy = y1
+
+        for (i = 0; i < 30000; i++) {
+            r = floor(random(0, 3));
+            switch (r) {
+                case 0:
+                    cx = (cx + x1) / 2;
+                    cy = (cy + y1) / 2;
+                    set(cx, cy, color(255, 255, 255));
+                    break;
+                case 1:
+                    cx = (cx + x2) / 2;
+                    cy = (cy + y2) / 2;
+                    set(cx, cy, color(255, 255, 255));
+                    break;
+                case 2:
+                    cx = (cx + x3) / 2;
+                    cy = (cy + y3) / 2;
+                    set(cx, cy, color(255, 255, 255));
+                    break;
+            }
+        }
+        updatePixels();
+    }
+</script>
+</body>
+</html>

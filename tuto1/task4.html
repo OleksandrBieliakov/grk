@@ -1,0 +1,64 @@
+<!-- Painting -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>JS Bin</title>
+</head>
+<body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.7/p5.js"></script>
+<script>
+    function setup() {
+        createCanvas(800, 600);
+        noLoop();
+    }
+
+    function draw() {//noprotect
+        background(color(200, 200, 255));
+        grass_height = height - height / 3;
+        for (y = grass_height; y < height; y++)
+            for (x = 0; x < width; x++) {
+                set(x, y, color(0, 100, 0));
+            }
+
+        for (i = 0; i < 1000; i++) {
+            dx = floor(random(0, width));
+            dy = floor(random(grass_height, height));
+            r = floor(random(0, 255));
+            g = floor(random(0, 255));
+            b = floor(random(0, 255));
+            set(dx, dy, color(r, g, b));
+        }
+
+        wall_start_w = width / 4
+        wall_end_w = width - width / 4
+        wall_start_h = height / 3
+        wall_end_h = grass_height
+
+        for (y = wall_start_h; y < wall_end_h; y++)
+            for (x = wall_start_w; x < wall_end_w; x++) {
+                set(x, y, color(100, 50, 30));
+            }
+
+        roof_margin = (wall_end_w - wall_start_w) / 5
+        roof_start_w = wall_start_w - roof_margin
+        roof_end_w = wall_end_w + roof_margin
+        roof_start_h = wall_start_h / 5
+        roof_end_h = wall_start_h
+
+        roof_width = roof_end_w - roof_start_w
+        roof_height = roof_end_h - roof_start_h
+        roof_middle = roof_start_w + roof_width / 2
+
+        for (y = roof_start_h, w = 0; y < roof_end_h; y++, w += 2)
+            for (x = roof_middle - w; x < roof_middle + w; x++) {
+                set(x, y, color(255, 100, 100));
+            }
+
+        updatePixels();
+    }
+</script>
+</body>
+</html>
