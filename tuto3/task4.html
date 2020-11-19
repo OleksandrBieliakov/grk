@@ -54,16 +54,14 @@
     function flood_fill(x, y) {
         let stack = [];
         stack.push([Math.floor(x), Math.floor(y)]);
-        let counter = 100000;
+        let counter = 1000000;
         while (stack.length > 0 && counter > 0) {
             counter--;
-            let current = stack.pop();
-            let c_x = current[0];
-            let c_y = current[1];
+            let [c_x, c_y] = stack.pop()
             if (c_x < 0 || c_y < 0 || c_x > width || c_y > height) continue;
             let color = get_pixel(c_x, c_y);
             if (color !== 255) continue;
-            set_pixel(c_x, c_y, 0);
+            set_pixel(c_x, c_y, 100);
             stack.push([c_x, c_y - 1]);
             stack.push([c_x, c_y + 1]);
             stack.push([c_x - 1, c_y]);
